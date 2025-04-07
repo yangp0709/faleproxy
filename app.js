@@ -26,7 +26,13 @@ app.post('/fetch', async (req, res) => {
     }
 
     // Fetch the content from the provided URL
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      // Add headers to ensure proper handling
+      headers: {
+        'Accept': 'text/html,application/xhtml+xml,application/xml',
+        'User-Agent': 'FaleProxy/1.0'
+      }
+    });
     const html = response.data;
 
     // Use cheerio to parse HTML and selectively replace text content, not URLs
@@ -78,6 +84,11 @@ app.post('/fetch', async (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Faleproxy server running at http://localhost:${PORT}`);
-});
+if (!module.parent) {
+  app.listen(PORT, () => {
+    console.log(`Faleproxy server running at http://localhost:${PORT}`);
+  });
+}
+
+// Export for testing
+module.exports = app;
