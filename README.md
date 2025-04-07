@@ -68,7 +68,8 @@ The repository includes a GitHub Actions workflow configuration in `.github/work
 1. Runs on pushes to main/master branches and on pull requests
 2. Tests the application on multiple Node.js versions (18.x, 20.x)
 3. Generates and uploads test coverage reports
-4. Automatically deploys to Vercel (when pushing to main/master)
+4. Automatically deploys to Vercel production when pushing to main/master (only if tests pass)
+5. Creates preview deployments for feature branches and pull requests (even if tests fail)
 
 ### Setting up Vercel Deployment
 
